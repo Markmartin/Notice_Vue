@@ -14,9 +14,27 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        userInfo: {},
-        noticeList: [],
-        noticeInfo: {},
+        userInfo: {
+            account: "944565923@qq.com",
+            pwd: "b8d023ff689a742827b7678afd0779e7",
+            userId: 3
+        },
+        noticeList: [
+            {
+                content_cn: "<h3>ITC Progress Update 10/11/2018¨C16/11/2018</h3><ol><li>Add EVM benchmark<br></li><li>Add newops in eip<br></li></ol>",
+                content_en: "<blockquote>[Done] Random-data-generator</blockquote><ul><li>Instances of most data type<br></li><li>Replace the majority of fixtures with property-based testing<br></li></ul>",
+                content_kn: "",
+                noticeId: 12,
+                status: 0,
+                title_cn: "ITC Progress Update 10/11/2018¨C16/11/2018",
+                title_en: "英文周报",
+                title_kn: ""
+            }
+        ],
+        noticeInfo: {
+            content_cn:"",
+            
+        },
     },
     mutations: {
         set_current_user(state, userInfo) {
@@ -41,7 +59,7 @@ export default new Vuex.Store({
             }
         },
         update_current_edit_notice(state, updateInfo) {
-            Object.keys(updateInfo).forEach(function(key) {
+            Object.keys(updateInfo).forEach(function (key) {
                 state.noticeInfo[key] = updateInfo[key]
             });
         }
@@ -59,7 +77,7 @@ export default new Vuex.Store({
 
 
 async function updateList(page) {
-    var baseUrl = "http://127.0.0.1:3000";
+    var baseUrl = "http://47.75.16.97:5000";
     var resUrl = baseUrl + '/notice/list';
     return axios({
         method: 'post',

@@ -2,8 +2,8 @@
     <div class="login">
         <label class="page_title">This is Login Page</label>
         <div class="input_area">
-            <el-input placeholder="请输入账户" clearable ref="account" label="用户框" value="944565923@qq.com"></el-input>
-            <el-input placeholder="请输入密码" clearable ref="pwd" type="password" class="input_vartical_distance" value="123456"></el-input>
+            <el-input placeholder="请输入账户" clearable v-model="account" label="用户框" value="944565923@qq.com"></el-input>
+            <el-input placeholder="请输入密码" clearable v-model="pwd" type="password" class="input_vartical_distance" value="123456"></el-input>
             <el-button type="primary" class="login_btn" @click="login">登录</el-button>
         </div>
     </div>
@@ -12,9 +12,15 @@
 <script>
 import axios from "axios";
 export default {
+  data:function(){
+    return {
+      account:'944565923@qq.com',
+      pwd:'123456'
+    }
+  },
   methods: {
     login() {
-      if (this.$refs.account.currentValue.length == 0) {
+      if (this.account.length == 0) {
         this.$message({
           showClose: true,
           message: "账户不能为空",
@@ -22,7 +28,7 @@ export default {
         });
         return;
       }
-      if (this.validationMail(this.$refs.account.currentValue) == false) {
+      if (this.validationMail(this.account) == false) {
         this.$message({
           showClose: true,
           message: "账户格式不正确",
@@ -30,7 +36,7 @@ export default {
         });
         return;
       }
-      if (this.$refs.pwd.currentValue.length < 6) {
+      if (this.pwd.length < 6) {
         this.$message({
           showClose: true,
           message: "密码长度不正确",
@@ -39,8 +45,8 @@ export default {
         return;
       }
       this.loginRequest(
-        this.$refs.account.currentValue,
-        this.$refs.pwd.currentValue
+        this.account,
+        this.pwd
       );
 
       //   this.$store.dispatch("login", {
@@ -57,10 +63,7 @@ export default {
       }
     },
     loginRequest(account, pwd) {
-      var baseUrl =
-        process.env.NODE_ENV === "development"
-          ? "/api"
-          : "http://127.0.0.1:3000";
+      var baseUrl = "http://47.75.16.97:5000";
       var resUrl = baseUrl + "/noticeManager/login";
       axios({
         method: "post",

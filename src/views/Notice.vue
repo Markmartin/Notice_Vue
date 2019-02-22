@@ -1,32 +1,46 @@
 <template>
-    <div class="notieList">
-      <h1>通知列表</h1>
-      <el-button type="success" @click="handCreate">新建通知</el-button>
-      <el-table :data="realdata" style="width: 100%">
-          <el-table-column label="公告ID" prop="noticeId"></el-table-column>
-          <el-table-column label="公告标题" prop="title_cn"></el-table-column>
-          <el-table-column label="公告状态" prop="status" :formatter="statusFormatter"></el-table-column>
-          <el-table-column align="right">
-              <template slot-scope="scope">
-                <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-              </template>
-          </el-table-column>
-      </el-table>
-      <div class="pagination">
-        <el-button type="primary" icon="el-icon-arrow-left" id="last" @click="lastPage" :disabled="current_page==1?true:false">上一页</el-button>
-        <span class="currentPage">{{current_page}}</span>
-        <el-button type="primary" id="next" @click="nextPage" :disabled="this.$store.state.noticeList.length<10?true:false">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
-      </div>
-      
-      <el-dialog title="秘钥" :visible.sync="dialogVisible">
-        <el-input placeholder="请输入secretKey" clearable ref="secretKey" v-model="secretKey"></el-input>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-        </div>
-      </el-dialog>
+  <div class="notieList">
+    <h1>通知列表</h1>
+    <el-button type="success" @click="handCreate">新建通知</el-button>
+    <el-table :data="realdata" style="width: 100%">
+      <el-table-column label="公告ID" prop="noticeId"></el-table-column>
+      <el-table-column label="公告标题" prop="title_cn"></el-table-column>
+      <el-table-column label="公告状态" prop="status" :formatter="statusFormatter"></el-table-column>
+      <el-table-column align="right">
+        <template slot-scope="scope">
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="pagination">
+      <el-button
+        type="primary"
+        icon="el-icon-arrow-left"
+        id="last"
+        @click="lastPage"
+        :disabled="current_page==1?true:false"
+      >上一页</el-button>
+      <span class="currentPage">{{current_page}}</span>
+      <el-button
+        type="primary"
+        id="next"
+        @click="nextPage"
+        :disabled="this.$store.state.noticeList.length<10?true:false"
+      >
+        下一页
+        <i class="el-icon-arrow-right el-icon--right"></i>
+      </el-button>
     </div>
+
+    <el-dialog title="秘钥" :visible.sync="dialogVisible">
+      <el-input placeholder="请输入secretKey" clearable ref="secretKey" v-model="secretKey"></el-input>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -57,10 +71,7 @@ export default {
         this.dialogVisible = true;
         return;
       }
-      var baseUrl =
-        process.env.NODE_ENV === "development"
-          ? "http://127.0.0.1:3000"
-          : "https://wallet.iotchain.io";
+      var baseUrl = "http://47.75.16.97:5000";
       var resUrl = baseUrl + "/notice/delete";
       axios({
         method: "post",
@@ -111,11 +122,12 @@ export default {
     }
   },
   mounted: function() {
-    if (Object.keys(this.$store.state.userInfo) == 0) {
-      this.$router.push({ name: "Login" });
-    } else {
-      this.updateNoticeList();
-    }
+    // if (Object.keys(this.$store.state.userInfo) == 0) {
+    //   this.$router.push({ name: "Login" });
+    // } else {
+    //   this.updateNoticeList();
+    // }
+    this.updateNoticeList();
   }
 };
 </script>

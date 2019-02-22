@@ -11,19 +11,19 @@ export default new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [{
-            path: '/',
-            name: 'Login',
-            component: Login
-        },
-        {
-            path: '/notice_list',
-            name: 'Notice',
-            component: Notice
-        },
-        {
-            path: '/notice_edit',
-            name: 'NoticeEdit',
-            component: NoticeEdit
-        },
+        path: '/',
+        name: 'Login',
+        component: Login
+    },
+    {
+        path: '/notice_list',
+        name: 'Notice',
+        component: Notice
+    },
+    {
+        path: '/notice_edit',
+        name: 'NoticeEdit',
+        component: NoticeEdit
+    },
     ]
 })

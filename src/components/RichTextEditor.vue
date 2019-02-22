@@ -1,6 +1,13 @@
 <template>
   <div>
-    <el-input placeholder="请输入标题" clearable ref="title" class="title" @blur="end_edit_title" :value="title"></el-input>
+    <el-input
+      placeholder="请输入标题"
+      clearable
+      ref="title"
+      class="title"
+      @blur="end_edit_title"
+      v-model="title"
+    ></el-input>
 
     <div class="editor_area" ref="editor" style="text-align:left"></div>
   </div>

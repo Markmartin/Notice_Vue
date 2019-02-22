@@ -1,22 +1,28 @@
 <template>
-    <div class="noticeEdit">
-      <h1>This is Notice_Edit Page</h1>
-      <div class="lan_type">
-        <el-radio-group v-model="lan.lan">
-          <el-radio-button :label="lan.cn"></el-radio-button>
-          <el-radio-button :label="lan.en"></el-radio-button>
-          <el-radio-button :label="lan.kn"></el-radio-button>
-        </el-radio-group>
-			</div>
-      <div class="noticeEditArea">
-        <rich-text-editor v-bind:lan="this.lantype"></rich-text-editor>
-      </div>
-      <el-input placeholder="请输入secretKey" clearable ref="secret_key" class="secret_key" v-model="secret_key"></el-input>
-      <div class="bottom_btn">
-        <el-button type="primary" @click="back_to_notice_list">返回</el-button>
-        <el-button type="primary" @click="submit_notice">提交</el-button>
-      </div>
+  <div class="noticeEdit">
+    <h1>This is Notice_Edit Page</h1>
+    <div class="lan_type">
+      <el-radio-group v-model="lan.lan">
+        <el-radio-button :label="lan.cn"></el-radio-button>
+        <el-radio-button :label="lan.en"></el-radio-button>
+        <el-radio-button :label="lan.kn"></el-radio-button>
+      </el-radio-group>
     </div>
+    <div class="noticeEditArea">
+      <rich-text-editor v-bind:lan="this.lantype"></rich-text-editor>
+    </div>
+    <el-input
+      placeholder="请输入secretKey"
+      clearable
+      ref="secret_key"
+      class="secret_key"
+      v-model="secret_key"
+    ></el-input>
+    <div class="bottom_btn">
+      <el-button type="primary" @click="back_to_notice_list">返回</el-button>
+      <el-button type="primary" @click="submit_notice">提交</el-button>
+    </div>
+  </div>
 </template>
 
 
@@ -26,11 +32,11 @@ import RichTextEditor from "../components/RichTextEditor.vue";
 
 export default {
   created: function() {
-    if (this.$route.params.index == undefined) {
-      //跳回login_page
-      this.$router.push({ name: "Login" });
-      return;
-    }
+    // if (this.$route.params.index == undefined) {
+    //   //跳回login_page
+    //   this.$router.push({ name: "Login" });
+    //   return;
+    // }
     this.$store.commit("set_current_notice", this.$route.params.index);
     this.type = this.$route.params.index == -1 ? "add" : "update";
   },
@@ -70,10 +76,7 @@ export default {
         });
         return;
       }
-      var baseUrl =
-        process.env.NODE_ENV === "development"
-          ? "/api"
-          : "http://127.0.0.1:3000";
+      var baseUrl = "http://47.75.16.97:5000";
       var resUrl = baseUrl + "/notice/" + this.type;
       axios({
         method: "post",
