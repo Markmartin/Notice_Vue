@@ -26,9 +26,10 @@ value为值  option为选项显示的字符串
 <Form.Item>
   {getFieldDecorator('key', {
     initialValue: 初始值
-    })(<LargeSelect dataSource={dataSource} style={{width:'200px'}} valueChange={callback} />)}
+    })(<LargeSelect dataSource={dataSource} style={{width:'200px'}} valueChange={callback} placeholder={'自定义placeholder'}/>)}
 </Form.Item>
 ```
-
+ 
 ### fixBug  
 修复选项框依赖body，现在依赖父节点
+修复setFields更新值不响应
